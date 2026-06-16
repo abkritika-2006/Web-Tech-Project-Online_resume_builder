@@ -15,6 +15,9 @@ $r = $resume ?: [];
 $experience = json_decode($r['experience'] ?? '[]', true) ?: [];
 $education  = json_decode($r['education']  ?? '[]', true) ?: [];
 $skills     = json_decode($r['skills']     ?? '[]', true) ?: [];
+$projects       = json_decode($r['projects'] ?? '[]', true) ?: [];
+$certifications = json_decode($r['certifications'] ?? '[]', true) ?: [];
+$achievements   = json_decode($r['achievements'] ?? '[]', true) ?: [];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,6 +56,9 @@ $skills     = json_decode($r['skills']     ?? '[]', true) ?: [];
     <button class="tab-btn"        data-tab="experience"  role="tab">Experience</button>
     <button class="tab-btn"        data-tab="education"   role="tab">Education</button>
     <button class="tab-btn"        data-tab="skills"      role="tab">Skills</button>
+    <button class="tab-btn"        data-tab="projects"    role="tab">Projects</button>
+    <button class="tab-btn"        data-tab="certifications" role="tab">Certifications</button>
+    <button class="tab-btn"        data-tab="achievements" role="tab">Achievements</button>
     <button class="tab-btn"        data-tab="links"       role="tab">Links</button>
   </div>
 
@@ -225,6 +231,39 @@ $skills     = json_decode($r['skills']     ?? '[]', true) ?: [];
         <button type="button" class="btn btn-outline" onclick="addSkill()">Add</button>
       </div>
       <p class="form-hint mt-8">Press Enter or click Add. Separate multiple with commas.</p>
+    </div>
+
+    <!-- ─── Projects ─────────────────────────────── -->
+    <div class="tab-panel" id="tab-projects">
+        <div class="form-group">
+            <label>Projects</label>
+            <textarea name="projects" rows="8"
+                placeholder="Resume Builder - PHP, MySQL&#10;Store Management System - Java">
+    <?= htmlspecialchars($r['projects'] ?? '') ?>
+            </textarea>
+        </div>
+    </div>
+
+    <!-- ─── Certifications ───────────────────────── -->
+    <div class="tab-panel" id="tab-certifications">
+        <div class="form-group">
+            <label>Certifications</label>
+            <textarea name="certifications" rows="8"
+                placeholder="AWS Cloud Practitioner&#10;Google Data Analytics">
+    <?= htmlspecialchars($r['certifications'] ?? '') ?>
+            </textarea>
+        </div>
+    </div>
+
+    <!-- ─── Achievements ─────────────────────────── -->
+    <div class="tab-panel" id="tab-achievements">
+        <div class="form-group">
+            <label>Achievements</label>
+            <textarea name="achievements" rows="8"
+                placeholder="Winner - College Hackathon&#10;Dean's List 2025">
+    <?= htmlspecialchars($r['achievements'] ?? '') ?>
+            </textarea>
+        </div>
     </div>
 
     <!-- ─── Links ─────────────────────────────────── -->

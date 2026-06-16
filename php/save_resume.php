@@ -5,6 +5,9 @@ requireLogin();
 
 header('Content-Type: application/json');
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['error' => 'Method not allowed']);
@@ -28,6 +31,9 @@ $linkedin  = s('linkedin');
 $github    = s('github');
 $website   = s('website');
 $summary   = s('summary');
+$projects  = s('projects');
+$certifications = s('certifications');
+$achievements   = s('achievements');
 
 // Skills – already JSON-encoded from JS
 $skillsRaw = s('skills');
@@ -66,34 +72,91 @@ $stmt->execute([$uid]);
 $existing = $stmt->fetch();
 
 if ($existing) {
+
     $stmt = $pdo->prepare('
         UPDATE resumes SET
-            full_name=?, job_title=?, email=?, phone=?, location=?,
-            linkedin=?, github=?, website=?,
-            summary=?, skills=?, experience=?, education=?
+            full_name=?,
+            job_title=?,
+            email=?,
+            phone=?,
+            location=?,
+            linkedin=?,
+            github=?,
+            website=?,
+            summary=?,
+            skills=?,
+            experience=?,
+            education=?,
+            projects=?,
+            certifications=?,
+            achievements=?
         WHERE user_id=?
     ');
+
     $stmt->execute([
-        $full_name, $job_title, $email, $phone, $location,
-        $linkedin, $github, $website,
-        $summary, $skills,
-        json_encode($experience), json_encode($education),
+        $full_name,
+        $job_title,
+        $email,
+        $phone,
+        $location,
+        $linkedin,
+        $github,
+        $website,
+        $summary,
+        $skills,
+        json_encode($experience),
+        json_encode($education),
+        $projects,
+        $certifications,
+        $achievements,
         $uid
     ]);
+
 } else {
+
     $stmt = $pdo->prepare('
-        INSERT INTO resumes
-            (user_id, full_name, job_title, email, phone, location,
-             linkedin, github, website, summary, skills, experience, education)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
+        INSERT INTO resumes (
+            user_id,
+            full_name,
+            job_title,
+            email,
+            phone,
+            location,
+            linkedin,
+            github,
+            website,
+            summary,
+            skills,
+            experience,
+            education,
+            projects,
+            certifications,
+            achievements
+        )
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     ');
+
     $stmt->execute([
         $uid,
-        $full_name, $job_title, $email, $phone, $location,
-        $linkedin, $github, $website,
-        $summary, $skills,
-        json_encode($experience), json_encode($education),
+        $full_name,
+        $job_title,
+        $email,
+        $phone,
+        $location,
+        $linkedin,
+        $github,
+        $website,
+        $summary,
+        $skills,
+        json_encode($experience),
+        json_encode($education),
+        $projects,
+        $certifications,
+        $achievements
     ]);
 }
 
-echo json_encode(['success' => true, 'message' => 'Resume saved successfully.']);
+echo json_encode([
+    'success' => true,
+    'message' => 'Resume saved successfully.'
+]);

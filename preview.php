@@ -164,6 +164,36 @@ function nl2p(string $text): string {
     </div>
     <?php endif; ?>
 
+    <!-- Projects -->
+    <?php if (!empty($resume['projects'])): ?>
+    <div class="resume-section">
+      <div class="resume-section-title">Projects</div>
+      <div class="resume-entry-desc">
+        <?= nl2br(h($resume['projects'])) ?>
+      </div>
+    </div>
+    <?php endif; ?>
+
+    <!-- Certifications -->
+    <?php if (!empty($resume['certifications'])): ?>
+    <div class="resume-section">
+      <div class="resume-section-title">Certifications</div>
+      <div class="resume-entry-desc">
+        <?= nl2br(h($resume['certifications'])) ?>
+      </div>
+    </div>
+    <?php endif; ?>
+
+    <!-- Achievements -->
+    <?php if (!empty($resume['achievements'])): ?>
+    <div class="resume-section">
+      <div class="resume-section-title">Achievements</div>
+      <div class="resume-entry-desc">
+        <?= nl2br(h($resume['achievements'])) ?>
+      </div>
+    </div>
+    <?php endif; ?>
+
     <!-- Skills -->
     <?php if (!empty($skills)): ?>
     <div class="resume-section">
